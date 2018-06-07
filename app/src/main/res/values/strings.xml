@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Hackaton</string>
+    <string name="title_activity_main_page">MainPage</string>
+    <string name="title_home">Мастер</string>
+    <string name="title_dashboard">Стирка</string>
+    <string name="title_notifications">Профиль</string>
+    <string-array name="catlist">
+        <item>Плотник</item>
+        <item>Электрик</item>
+        <item>Сантехник</item>
+    </string-array>
+</resources>

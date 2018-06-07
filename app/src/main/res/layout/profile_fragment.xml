@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:padding="10dp"-->
+        <!--android:gravity="center">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/titleName"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="17sp"-->
+            <!--android:text="ФИО:"-->
+            <!--android:textColor="#000"-->
+            <!--android:gravity="center_horizontal"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/name"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="15sp"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/titleLogin"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="17sp"-->
+            <!--android:text="Логин:"-->
+            <!--android:textColor="#000"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:layout_marginTop="5dp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/login"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="15sp"-->
+            <!--android:gravity="center_horizontal"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/titleCampus"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="17sp"-->
+            <!--android:text="Номер общежития:"-->
+            <!--android:textColor="#000"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:layout_marginTop="5dp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/campus"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="15sp"-->
+            <!--android:gravity="center_horizontal"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/titleRoom"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="17sp"-->
+            <!--android:text="Номер комнаты:"-->
+            <!--android:textColor="#000"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:layout_marginTop="5dp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/room"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+
+            <!--android:textSize="15sp"-->
+            <!--android:gravity="center_horizontal"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/titlePhone"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="17sp"-->
+            <!--android:text="Номер телефона:"-->
+            <!--android:textColor="#000"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:layout_marginTop="5dp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/phone"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="15sp"-->
+            <!--android:gravity="center_horizontal"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/titleEmail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="17sp"-->
+            <!--android:text="Email:"-->
+            <!--android:textColor="#000"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:layout_marginTop="5dp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/email"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="15sp"-->
+            <!--android:gravity="center_horizontal"/>-->
+
+
+
+        <ListView
+            android:id="@+id/servicesUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <!--<Button-->
+            <!--android:id="@+id/exitBtn"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Выход"-->
+            <!--android:layout_marginTop="15dp"/>-->
+
+    <!--</LinearLayout>-->
+
+</LinearLayout>
