@@ -15,8 +15,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.machine_time.hackaton.net.ConnectApi;
-import com.example.machine_time.hackaton.net.model.request.ServiceRequest;
-import com.example.machine_time.hackaton.net.model.response.ServiceResponse;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -48,8 +46,6 @@ public class ServiceFragment extends Fragment {
 
         getActivity().setTitle("Заполнить заявку");
 
-//        sharedPreferences = getActivity().getSharedPreferences("savedData", 0);
-//        id = Integer.parseInt(sharedPreferences.getString("id", ""));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -65,46 +61,11 @@ public class ServiceFragment extends Fragment {
 
         btnSend.setOnClickListener(new View.OnClickListener() {
 
-            ConnectApi connectApi = ConnectApi.getInstanse();
+//            ConnectApi connectApi = ConnectApi.getInstanse();
 
             @Override
             public void onClick(View v) {
 
-                ServiceRequest serviceRequest = new ServiceRequest();
-                serviceRequest.setType(spinner.getSelectedItem().toString());
-                serviceRequest.setInfo(descriptionTroubleEt.getText().toString());
-                serviceRequest.setDate(dateEt.getText().toString());
-                serviceRequest.setUser_id(id);
-
-                subscription = connectApi.service(serviceRequest)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(mainThread())
-                        .subscribe(new Subscriber<ServiceResponse>() {
-                            @Override
-                            public void onCompleted() {
-                                Log.d("MainActivity", "onCompleted");
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.e("MainActivity", "onError => " + e.getMessage());
-                            }
-
-                            @Override
-                            public void onNext(ServiceResponse response) {
-                                Log.d("MainActivity", "onNext => " + response);
-
-                                try{
-                                    if(response.getStatus() == 200){
-                                        Toast.makeText(getActivity(), "Заявка отправлена!", Toast.LENGTH_LONG).show();
-                                    }else{
-                                        Toast.makeText(getActivity(), "Произошла ошибка, попробуйте снова.", Toast.LENGTH_LONG).show();
-                                    }
-                                }catch (NullPointerException e){
-                                    Log.e("MainActivity", "NullPointerException => " + e.getMessage());
-                                }
-                            }
-                        });
             }
         });
 

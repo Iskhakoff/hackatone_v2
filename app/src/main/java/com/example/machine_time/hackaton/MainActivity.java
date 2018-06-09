@@ -9,10 +9,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.machine_time.hackaton.net.ConnectApi;
-import com.example.machine_time.hackaton.net.model.request.UserRequest;
-import com.example.machine_time.hackaton.net.model.response.UserResponse;
+import com.example.machine_time.hackaton.net.model.request.AuthUserRequest;
+import com.example.machine_time.hackaton.net.model.response.AuthUserResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,89 +41,74 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     SharedPreferences sharedPreferences;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-//        hide status bar
+//        hide action bar
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         authBtn.setOnClickListener(this);
         registrationBtn.setOnClickListener(this);
 
-        sharedPreferences = getSharedPreferences("savedData", 0);
-        String isAuth = sharedPreferences.getString("ifAuth", "");
-
-        if(isAuth.equalsIgnoreCase(String.valueOf(1))){
-            Intent intent = new Intent(this, MainPage.class);
-            startActivity(intent);
-        }
-
 
     }
 
     @Override
     public void onClick(View v) {
-        ConnectApi connectApi = ConnectApi.getInstanse();
 
-        UserRequest user = new UserRequest();
+        if(!loginAuthEt.getText().toString().equalsIgnoreCase("") && !passwordAuthEt.getText().toString().equalsIgnoreCase("")){
+            ConnectApi connectApi = ConnectApi.getInstanse();
 
-        user.setLogin(loginAuthEt.getText().toString());
-        user.setPass(passwordAuthEt.getText().toString());
+            AuthUserRequest authUserRequest = new AuthUserRequest();
+            authUserRequest.setUsername(loginAuthEt.getText().toString());
+            authUserRequest.setPassword(passwordAuthEt.getText().toString());
+
+            switch (v.getId()){
+                case R.id.authBtn:
+                    subscription = connectApi.auth(authUserRequest)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(mainThread())
+                            .subscribe(new Subscriber<Response<AuthUserResponse>>() {
+                                @Override
+                                public void onCompleted() {
+                                    Log.d("MainActivity", "onCompleted");
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.e("MainActivity", "onError => " + e.getMessage());
+                                }
+
+                                @Override
+                                public void onNext(Response<AuthUserResponse> response) {
+                                    Log.d("MainActivity", "onNext => " + response);
+                                    if(response.isSuccessful()){
+
+                                        sharedPreferences = getSharedPreferences("savedData", 0);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("token", response.body().getToken());
+                                        editor.putString("id", String.valueOf(response.body().getUser().getId()));
+                                        editor.putString("dormitory", String.valueOf(response.body().getUser().getProfile().getDormitory()));
+                                        editor.apply();
+
+                                        Intent auth = new Intent(getApplicationContext(), MainPage.class);
+                                        startActivity(auth);
+                                    }else{
+                                        Toast.makeText(MainActivity.this, "Неверный логин или пароль!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                    break;
 
 
-        switch (v.getId()){
-            case R.id.authBtn:
-//                subscription = connectApi.auth(user)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(mainThread())
-//                        .subscribe(new Subscriber<Response<UserResponse>>() {
-//                            @Override
-//                            public void onCompleted() {
-//                                Log.d("MainActivity", "onCompleted");
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//                                Log.e("MainActivity", "onError => " + e.getMessage());
-//
-//                            }
-//                            @Override
-//                            public void onNext(Response<UserResponse> response) {
-//                                Log.d("MainActivity", "onNext => " + response);
-//                                try{
-//                                    if(response.isSuccessful()){
-//                                        sharedPreferences = getSharedPreferences("savedData", 0);
-//                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                                        editor.putString("id", String.valueOf(response.body().getId()));
-//                                        editor.putString("name", response.body().getName());
-//                                        editor.putString("login", response.body().getLogin());
-//                                        editor.putString("build", response.body().getBuild());
-//                                        editor.putString("room", response.body().getRoom());
-//                                        editor.putString("phone", response.body().getPhone());
-//                                        editor.putString("email", response.body().getEmail());
-//                                        editor.putString("pass", passwordAuthEt.getText().toString());
-//                                        editor.putString("is_employee", response.body().toString());
-//                                        editor.putString("isAuth", String.valueOf(1));
-//                                        editor.apply();
-//                                        Intent authSuccess = new Intent(getApplicationContext(), MainPage.class);
-//                                        startActivity(authSuccess);
-//                                    }else if(response.code() == 400){
-//                                        System.out.println(response.message());
-//                                    }else if(response.code() == 404){
-//                                        System.out.println(response.message());
-//                                    }
-//                                }catch (NullPointerException e){
-//                                    Log.e("MainActivity", "NullPointerException => " + e.getMessage());
-//                                }
-//                            }
-//                        });
-//                break;
-                Intent intent = new Intent(this, MainPage.class);
-                startActivity(intent);
-                break;
+
+            }
+        }else{
+            Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -130,6 +118,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(subscription != null && !subscription.isUnsubscribed()){
             subscription.unsubscribe();
         }
-        sharedPreferences.edit().clear().apply();
     }
 }

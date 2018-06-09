@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".MainPage"
-            android:label="@string/title_activity_main_page"></activity>
+            android:label="@string/title_activity_main_page" />
     </application>
 
 </manifest>
