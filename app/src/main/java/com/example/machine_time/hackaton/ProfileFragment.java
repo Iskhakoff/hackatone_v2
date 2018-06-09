@@ -25,6 +25,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         View v = inflater.inflate(R.layout.profile_fragment, container, false);
 
+        sharedPreferences = getActivity().getSharedPreferences("savedData", 0);
+
         fullname = (TextView)v.findViewById(R.id.fullname);
         username = (TextView)v.findViewById(R.id.username);
         email = (TextView)v.findViewById(R.id.email);
@@ -33,7 +35,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         room = (TextView)v.findViewById(R.id.room);
         exit = (Button)v.findViewById(R.id.exit);
 
-        fullname.setText(sharedPreferences.getString("fullname", ""));
+//        fullname.setText(sharedPreferences.getString("fullname", ""));
         username.setText(sharedPreferences.getString("username", ""));
         email.setText(sharedPreferences.getString("email", ""));
         phone.setText(sharedPreferences.getString("phone", ""));
