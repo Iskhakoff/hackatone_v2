@@ -1,5 +1,6 @@
 package com.example.machine_time.hackaton;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -54,7 +55,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         authBtn.setOnClickListener(this);
         registrationBtn.setOnClickListener(this);
 
+        sharedPreferences = getSharedPreferences("savedData", 0);
 
+        int is_auth = sharedPreferences.getInt("is_auth", 0);
+
+        if(is_auth == 1){
+            Intent intent = new Intent(this, MainPage.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -88,11 +96,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     Log.d("MainActivity", "onNext => " + response);
                                     if(response.isSuccessful()){
 
-                                        sharedPreferences = getSharedPreferences("savedData", 0);
+
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
+//                                        String login1 = response.body().getUser().getUsername();
+                                        editor.putInt("is_auth", 1);
+                                        editor.putString("fullname", response.body().getUser().getProfile().getFullname());
+                                        editor.putString("username", response.body().getUser().getUsername());
+                                        editor.putString("phone", response.body().getUser().getProfile().getPhoneNumber());
+                                        editor.putString("email", response.body().getUser().getEmail());
                                         editor.putString("token", response.body().getToken());
                                         editor.putString("id", String.valueOf(response.body().getUser().getId()));
                                         editor.putString("dormitory", String.valueOf(response.body().getUser().getProfile().getDormitory()));
+                                        editor.putString("room", String.valueOf(response.body().getUser().getProfile().getRoom()));
                                         editor.apply();
 
                                         Intent auth = new Intent(getApplicationContext(), MainPage.class);
