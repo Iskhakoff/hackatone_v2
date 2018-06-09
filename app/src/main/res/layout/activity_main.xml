@@ -43,15 +43,15 @@
             android:background="#FAAA32"
             android:textColor="@color/colorPrimaryDark"/>
 
-        <Button
-            android:id="@+id/registrationBtn"
-            android:layout_width="200dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center"
-            android:text="Регистрация"
-            android:layout_marginTop="10dp"
-            android:background="#FAAA32"
-            android:textColor="@color/colorPrimaryDark"/>
+        <!--<Button-->
+            <!--android:id="@+id/registrationBtn"-->
+            <!--android:layout_width="200dp"-->
+            <!--android:layout_height="55dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="Регистрация"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="#FAAA32"-->
+            <!--android:textColor="@color/colorPrimaryDark"/>-->
 
     </LinearLayout>
 

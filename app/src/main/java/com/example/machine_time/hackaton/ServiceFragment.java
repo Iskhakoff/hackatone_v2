@@ -61,11 +61,12 @@ public class ServiceFragment extends Fragment {
 
         btnSend.setOnClickListener(new View.OnClickListener() {
 
-//            ConnectApi connectApi = ConnectApi.getInstanse();
-
             @Override
             public void onClick(View v) {
-
+                switch(v.getId()){
+                    case R.id.btnSend:
+                        Toast.makeText(getActivity(), "Заявка отправлена!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
